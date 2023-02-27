@@ -75,33 +75,33 @@ let itemsManager = new ItemsManager();
 
 let inputNumber = document.getElementById("input-number");
 let inputText = document.getElementById("input-text");
-let tableItems = document.getElementById("tableItems");
+let tableItems = document.getElementById("table-items");
 
 function showItems() {
     let html = "";
 
-    html += <table class="table">;
-        html += `
-        <thead>
-        <tr>
-            <th>лет</th>
-            <th>имя</th>
-        </tr>
-        </thead>
-        `;
-        html += <tbody>;
+    html += `<table class="table">`;
+    html += `
+    <thead>
+    <tr>
+        <th>лет</th>
+        <th>имя</th>
+    </tr>
+    </thead>
+    `;
+    html += `<tbody>`;
 
-            itemsManager.getAll().forEach(item) =>{
-            html += `<tr>
-                <td>${item.getAge()}</td>
-                <td>${item.getName()}</td>
-                
-                <td><button class="btn btn-danger" onclick="buttonAddItem_Click(${item})">удалить</button></td>
-            </tr>`
-        });
+    itemsManager.getAll().forEach(item =>{
+    html += `<tr>
+        <td>${item.getAge()}</td>
+        <td>${item.getName()}</td>
+        
+        <td><button class="btn btn-danger" onclick="buttonAddItem_Click(${item})">удалить</button></td>
+    </tr>`
+    });
 
-        html += </tbody>;
-        html += </table>;
+    html += `</tbody>`;
+    html += `</table>`;
 
 
     tableItems.innerHTML = html;
@@ -117,9 +117,9 @@ window.onload = async function () {
         console.log(items);
 
         items.forEach(item => {
-            itemsManager.addNew();
+            itemsManager.addNew(item.id, item.name, item.age);
         });
 
-        showTodoItems();
+        showItems();
     }
 };
