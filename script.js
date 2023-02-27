@@ -31,9 +31,9 @@ class ItemsManager {
         this.#globalId = 0;
     }
 
-    addNew(name, age) {
+    addNew(id,name, age) {
         this.#globalId++;
-        let item = new Item(name, age);
+        let item = new Item(id,name, age);
 
         this.#items.push(item);
     }
@@ -50,6 +50,22 @@ class ItemsManager {
     }
 }
 
+function buttonAddItem_Click(){
+    let age = inputNumber.value;
+    let name = inputText.value;
+
+
+    if (age < 0){
+     alert("ALERT")
+     return;
+    }
+    if (name.length < 3){
+        alert("ALERT NAME")
+        return;
+    }
+    showItems();
+}
+
 function buttonDeleteItem_Click(id) {
     itemsManager.deleteById(id);
     showItems();
@@ -59,6 +75,7 @@ let itemsManager = new ItemsManager();
 
 let inputNumber = document.getElementById("input-number");
 let inputText = document.getElementById("input-text");
+let tableItems = document.getElementById("tableItems");
 
 function showItems() {
     let html = "";
@@ -74,18 +91,20 @@ function showItems() {
         `;
         html += <tbody>;
 
-        ItemsManager.getAll().forEach((item) => {
+            itemsManager.getAll().forEach(item) =>{
             html += `<tr>
                 <td>${item.getAge()}</td>
                 <td>${item.getName()}</td>
-                <td><button class="btn btn-danger" onclick="buttonDeleteItem_Click(${item})">Удалить</button></td>
+                
+                <td><button class="btn btn-danger" onclick="buttonAddItem_Click(${item})">удалить</button></td>
             </tr>`
         });
 
         html += </tbody>;
         html += </table>;
 
-    itemsDiv.innerHTML = html;
+
+    tableItems.innerHTML = html;
 }
 
 window.onload = async function () {
